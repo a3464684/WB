@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+<h2><small>欢迎!</small>&nbsp;&nbsp;{{current_user.name}}</h2>
+{% endblock %}
+
+{% block page_content1 %}
+    {% import 'bootstrap/wtf.html' as wtf %}
+    {{ wtf.quick_form(form) }}
+{% endblock %}

@@ -1,0 +1,41 @@
+<!--在app/templates下找base.html-->
+{% extends 'base.html' %}
+
+{% block page_content%}
+    <h2><small>Dear</small>&nbsp;&nbsp;{{current_user.name}}</h2>
+    <a href="{{url_for('main.post_news')}}" class="btn btn-default">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </a>
+{% endblock %}
+
+{% block page_content1 %}
+    <div class="page-header">
+        <a href="{{url_for('main.set_all_news_flag')}}" class="btn btn-info">所有新闻</a>
+        <a href="{{url_for('main.set_follow_news_flag')}}" class="btn btn-warning">关注新闻</a>
+    </div>
+
+    {% for news in paginate.items %}
+        <div class="page-header">
+            <font size="4" color="#191970" style="margin-right: 300px;">
+                <a href="{{url_for('main.news', nid=news.id)}}">
+                    {{news.title}}
+                </a>
+            </font>
+            <font size="3" color="black" style="margin-right: 100px;">
+                <a href="{{url_for('main.user_info', id=news.user.id)}}">
+                    {{news.user.name}}
+                </a>
+            </font>
+            <font size="3" color="black">{{moment(news.timestamp).fromNow()}}</font><br>
+            <br><font size="2" color="black">
+            <pre>{{news.body[:100]}}</pre>
+            </font>
+        </div>
+    {% endfor %}
+
+    <div align="center">
+        {% import 'macro/macro.html' as macro %}
+        {{macro.pagination_widget(paginate, 'main.all_news')}}
+    </div>
+{% endblock %}
+

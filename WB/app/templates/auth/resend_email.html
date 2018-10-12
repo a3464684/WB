@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+
+您好{{current_user.name}}!<br>
+您的验证已经超时。<br>
+点击<a href="{{url_for('auth.resend_email')}}">这里</a>重新发送验证邮件！
+<br><br> EMBSKY开发团队！
+<br> 谢谢您的支持
+
+{% endblock %}

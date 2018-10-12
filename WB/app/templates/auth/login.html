@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+<!--
+    <form action="" method="post">
+       ....
+    </form>
+    为了节省时间，我们用bootstrap提供的快速渲染表单的方法
+    -->
+    {% for m in get_flashed_messages() %}
+        <div class="alert alert-danger" role="alert">
+            {{m}}
+        </div>
+    {% endfor %}
+    {% import 'bootstrap/wtf.html' as wtf %}
+    {{ wtf.quick_form(form) }}
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+<h2><small>欢迎!</small>&nbsp;&nbsp;{{current_user.name}}</h2>
+{% endblock %}
+
+{% block page_content1 %}
+    {% for user in users %}
+        <h4>
+            我的昵称：{{user.name}}
+            {% if current_user.is_authenticated %}
+                {% if current_user.if_follower_of(user) %}
+                    <a class="btn btn-danger" href="{{url_for('main.unfollow', id=user.id)}}">
+                        <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                    </a>
+                {% else %}
+                    <a class="btn btn-info" href="{{url_for('main.follow', id=user.id)}}">
+                        <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+                    </a>
+                {% endif %}
+            {% endif %}
+            <a class="btn badge" href="{{url_for('main.all_followers', id=user.id)}}">粉丝数量 {{user.followers.count() }}</a>
+        </h4>
+        <h4>我的邮箱：{{user.email}}</h4>
+        <h4>我的位置：
+            <a href="http://www.baidu.com/s?wd={{user.location}}">
+                {{user.location}}
+            </a>
+        </h4>
+        <h4>我的签名：{{user.about_me}}</h4>
+        <h4>我的角色：{{user.role.name}}</h4>
+        <h4>邮箱验证：
+            {% if user.confirmed %}
+            是
+            {% else %}
+            否
+            {% endif %}
+        </h4>
+        <h4>注册时间：{{moment(user.register_time).format('LLL')}}</h4>
+        <h4>最近访问：{{moment(user.access_time).fromNow()}}</h4>
+    {% endfor %}
+{% endblock %}

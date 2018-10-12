@@ -1,0 +1,8 @@
+<!--在app/templates下找base.html-->
+{% extends 'base.html' %}
+
+{% block page_content%}
+    <h2><small>Dear</small>&nbsp;&nbsp;{{current_user.name}}</h2>
+    大家好！这里是阳光社区，欢迎老年朋友们热情加入！<br>
+    联系电话：12345678909
+{% endblock %}
